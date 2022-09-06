@@ -1,0 +1,54 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+}
+
+group = 'de.bs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.7.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.7.2'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '4.0.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.7.2'
+    implementation group: 'org.passay', name: 'passay', version: '1.6.2'
+    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.3'
+
+
+
+
+
+
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
