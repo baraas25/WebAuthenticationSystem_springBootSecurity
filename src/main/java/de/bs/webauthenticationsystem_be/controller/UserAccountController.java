@@ -33,8 +33,7 @@ public class UserAccountController {
       value = "/register",
       produces = {"application/json"},
       consumes = {"application/json"})
-  public ResponseEntity<String> register(
-       @RequestBody UserAccountRegisterDTO registerDTO){
+  public ResponseEntity<String> register(@RequestBody UserAccountRegisterDTO registerDTO) {
     return new ResponseEntity<>(userAccountService.register(registerDTO), CREATED);
   }
 
@@ -42,12 +41,12 @@ public class UserAccountController {
       value = "/login",
       produces = {"application/json"},
       consumes = {"application/json"})
-  public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO)
-          throws  UserAccountNotActive {
-    UserAccountDTO userAccountDTO = userAccountService.getUserAccountByUsername(loginDTO.getUsername());
-//    if (!userAccountDTO.isActive()){
-//      throw new UserAccountNotActive("The account is not activated");
-//    }
+  public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) throws UserAccountNotActive {
+    UserAccountDTO userAccountDTO =
+        userAccountService.getUserAccountByUsername(loginDTO.getUsername());
+    if (!userAccountDTO.isActive()) {
+      throw new UserAccountNotActive("The account is not activated");
+    }
     asmyAuthentcation.asmyAuthentcation(loginDTO);
     Userdata userdata = new Userdata(userAccountDTO);
     HttpHeaders jwtHeaders = asmyAuthentcation.getAsmyJwtHeaders(userdata);
@@ -59,7 +58,7 @@ public class UserAccountController {
       value = "activeUserAccount/{userAccountId}",
       produces = {"text/json"})
   public ResponseEntity<String> activeUserAccount(@PathVariable UUID userAccountId)
-          throws UsernameNotExist, Validation {
+      throws UsernameNotExist, Validation {
     return new ResponseEntity<>(userAccountService.activeUserAccount(userAccountId), OK);
   }
 
@@ -72,16 +71,18 @@ public class UserAccountController {
   }
 
   @GetMapping(
-          value = "resetpassword/{email}",
-          produces = {"text/json"})
-  public ResponseEntity<String> sendResetPasswordLinkToEmail(@PathVariable String email) throws EmailNotExist, MessagingException {
+      value = "resetpassword/{email}",
+      produces = {"text/json"})
+  public ResponseEntity<String> sendResetPasswordLinkToEmail(@PathVariable String email)
+      throws EmailNotExist, MessagingException {
     return new ResponseEntity<>(userAccountService.sendResetPasswordLinkToEmail(email), OK);
   }
 
-  @PutMapping(
-          value = "resetpassword/link/{userAccountId}",
-          produces = {"text/json"})
-  public ResponseEntity<String> resetPassword(@PathVariable UUID userAccountId)throws EmailNotExist {
+  @GetMapping(
+      value = "resetpassword/link/{userAccountId}",
+      produces = {"text/json"})
+  public ResponseEntity<String> resetPassword(@PathVariable UUID userAccountId)
+      throws EmailNotExist {
     return new ResponseEntity<>(userAccountService.resetPassword(userAccountId), OK);
   }
 
