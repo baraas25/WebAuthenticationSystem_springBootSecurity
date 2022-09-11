@@ -120,11 +120,20 @@ public class ExceptionHandling implements ErrorController {
   }
 
   @ExceptionHandler(UserAccountNotActive.class)
-  public ResponseEntity<HTTPProtocolResponse> userAccountNotActiveException(UserAccountNotActive exception) {
+  public ResponseEntity<HTTPProtocolResponse> userAccountNotActiveException(
+      UserAccountNotActive exception) {
     return createHttpResponse(BAD_REQUEST, exception.getMessage());
   }
+
   @ExceptionHandler(UsernameNotFoundException.class)
-  public ResponseEntity<HTTPProtocolResponse> userAccountNotActiveException(UsernameNotFoundException exception) {
+  public ResponseEntity<HTTPProtocolResponse> usernameNotFoundException(
+      UsernameNotFoundException exception) {
+    return createHttpResponse(BAD_REQUEST, exception.getMessage());
+  }
+
+  @ExceptionHandler(ResetPasswordLinkNotExist.class)
+  public ResponseEntity<HTTPProtocolResponse> resetPasswordLinkNotExist(
+      ResetPasswordLinkNotExist exception) {
     return createHttpResponse(BAD_REQUEST, exception.getMessage());
   }
 

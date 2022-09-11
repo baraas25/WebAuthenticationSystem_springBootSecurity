@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -23,11 +22,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     "/api/v1/user/home",
     "/api/v1/user/login",
     "/api/v1/user/register",
-    "/api/v1/user/resetpassword",
+    "/api/v1/user/resetpassword/**",
     "/api/v1/user/activeUserAccount/*",
     "/h2-console/**",
     "/api/v1/user/all",
     "/logout",
+    "/api/v1/pass/*"
   };
   private static final String[] USER_READ_MATCHERS = {
     "/api/v1/user/role", "/api/v1/user/changepassword/*",
@@ -70,15 +70,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-
-// TODO
+    // TODO
     /*
-            http.logout()
-            .logoutUrl("/api/v1/user/logout")
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-            .clearAuthentication(true)
-            .invalidateHttpSession(true)
-            .deleteCookies("JSESSIONID");*/
+    http.logout()
+    .logoutUrl("/api/v1/user/logout")
+    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+    .clearAuthentication(true)
+    .invalidateHttpSession(true)
+    .deleteCookies("JSESSIONID");*/
   }
 
   @Bean

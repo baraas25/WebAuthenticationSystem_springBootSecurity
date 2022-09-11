@@ -35,6 +35,7 @@ public class UserAccountServiceImp implements UserDetailsService {
   private final UserAccountRepository userAccountRepository;
   private final RegexService regexService;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final ResetPasswordLinkService resetPasswordLinkService;
   private final LoginAttemptsService loginAttemptsService;
 
   @Autowired
@@ -43,11 +44,13 @@ public class UserAccountServiceImp implements UserDetailsService {
       UserAccountRepository userAccountRepository,
       RegexService regexService,
       BCryptPasswordEncoder bCryptPasswordEncoder,
+      ResetPasswordLinkService resetPasswordLinkService,
       LoginAttemptsService loginAttemptsService) {
     this.emailService = emailService;
     this.userAccountRepository = userAccountRepository;
     this.regexService = regexService;
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    this.resetPasswordLinkService = resetPasswordLinkService;
     this.loginAttemptsService = loginAttemptsService;
   }
 
@@ -97,7 +100,7 @@ public class UserAccountServiceImp implements UserDetailsService {
 
     EmailMessageDTO emailMessageDTO = createEmailMessageDTO(userAccount);
 
-    // emailService.sendActiveLinkByEmail(emailMessageDTO);
+     emailService.sendActiveLinkByEmail(emailMessageDTO);
     return "Account successfully created:\n"
         + "Please click on the link in the email you received from us to activate your customer account.\n"
         + "If you cannot find the e-mail in your mailbox, please check your spam folder.";
@@ -135,8 +138,9 @@ public class UserAccountServiceImp implements UserDetailsService {
     return "Password changed Successfully";
   }
 
-  public String sendResetPasswordLinkToEmail(String email) throws EmailNotExist {
+  public String sendResetPasswordLinkToEmail(String email) throws EmailNotExist, ResetPasswordLinkNotExist {
     UserAccount userAccount = getUserAccountByEmail(email).toEntity();
+    resetPasswordLinkService.addResetPasswordLink(userAccount);
     emailService.sendResetPasswordLinkToEmail(createEmailMessageDTO(userAccount));
     return "A password reset link has been sent to your email";
   }

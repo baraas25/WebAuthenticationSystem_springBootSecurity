@@ -74,7 +74,7 @@ public class UserAccountController {
       value = "resetpassword/{email}",
       produces = {"text/json"})
   public ResponseEntity<String> sendResetPasswordLinkToEmail(@PathVariable String email)
-      throws EmailNotExist, MessagingException {
+          throws EmailNotExist, ResetPasswordLinkNotExist {
     return new ResponseEntity<>(userAccountService.sendResetPasswordLinkToEmail(email), OK);
   }
 
