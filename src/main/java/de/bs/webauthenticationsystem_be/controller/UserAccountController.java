@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,7 +73,7 @@ public class UserAccountController {
       value = "resetpassword/{email}",
       produces = {"text/json"})
   public ResponseEntity<String> sendResetPasswordLinkToEmail(@PathVariable String email)
-          throws EmailNotExist, ResetPasswordLinkNotExist {
+      throws EmailNotExist, ResetPasswordLinkNotExist {
     return new ResponseEntity<>(userAccountService.sendResetPasswordLinkToEmail(email), OK);
   }
 

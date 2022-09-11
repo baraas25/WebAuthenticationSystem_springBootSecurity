@@ -16,17 +16,16 @@ import java.util.UUID;
 @Getter
 @Entity
 @Table(
-        indexes = {
-                @Index(columnList = "username"),
-                @Index(columnList = "email"),
-        }
-)
+    indexes = {
+      @Index(columnList = "username"),
+      @Index(columnList = "email"),
+    })
 public class UserAccount {
 
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column( columnDefinition = "binary(16)",updatable = false)
+  @Column(columnDefinition = "binary(16)", updatable = false)
   private UUID id;
 
   @Column(nullable = false)
@@ -42,13 +41,13 @@ public class UserAccount {
   private String lastname;
 
   @NotEmpty(message = "The username cannot be empty")
-  @Column(unique = true,nullable = false)
+  @Column(unique = true, nullable = false)
   @Size(min = 3, max = 30, message = "The username must be between 3 and 30 characters")
   private String username;
 
   @NotEmpty(message = "Gender cannot be empty")
   @Email(message = "The format of the email address isn't correct")
-  @Column(unique = true,nullable = false)
+  @Column(unique = true, nullable = false)
   private String email;
 
   @NotEmpty(message = "Gender cannot be empty")

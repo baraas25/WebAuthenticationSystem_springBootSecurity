@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 @Getter
 public class UserAccountRegisterDTO extends Person {
-    private String password;
-    private String confirmPassword;
-    private Date birthday;
+  private String password;
+  private String confirmPassword;
+  private Date birthday;
 }

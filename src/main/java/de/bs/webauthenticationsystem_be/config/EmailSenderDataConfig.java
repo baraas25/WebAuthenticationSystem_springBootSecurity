@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class EmailSenderDataConfig {
-    private String cc;
-    private String subject;
+  private String cc;
+  private String subject;
 }

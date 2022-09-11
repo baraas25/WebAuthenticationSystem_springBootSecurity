@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class CompanyConfig {
-    private String name;
-    private String email;
-    private String tel;
-    private String web;
+  private String name;
+  private String email;
+  private String tel;
+  private String web;
 }

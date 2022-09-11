@@ -100,7 +100,7 @@ public class UserAccountServiceImp implements UserDetailsService {
 
     EmailMessageDTO emailMessageDTO = createEmailMessageDTO(userAccount);
 
-     emailService.sendActiveLinkByEmail(emailMessageDTO);
+    emailService.sendActiveLinkByEmail(emailMessageDTO);
     return "Account successfully created:\n"
         + "Please click on the link in the email you received from us to activate your customer account.\n"
         + "If you cannot find the e-mail in your mailbox, please check your spam folder.";
@@ -138,7 +138,8 @@ public class UserAccountServiceImp implements UserDetailsService {
     return "Password changed Successfully";
   }
 
-  public String sendResetPasswordLinkToEmail(String email) throws EmailNotExist, ResetPasswordLinkNotExist {
+  public String sendResetPasswordLinkToEmail(String email)
+      throws EmailNotExist, ResetPasswordLinkNotExist {
     UserAccount userAccount = getUserAccountByEmail(email).toEntity();
     resetPasswordLinkService.addResetPasswordLink(userAccount);
     emailService.sendResetPasswordLinkToEmail(createEmailMessageDTO(userAccount));

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class JWTConfig {
-    private String secret;
-    private long expireTime;
-    private long refreshTokenTime;
+  private String secret;
+  private long expireTime;
+  private long refreshTokenTime;
 }

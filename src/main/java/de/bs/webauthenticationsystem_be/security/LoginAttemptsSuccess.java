@@ -18,7 +18,7 @@ public class LoginAttemptsSuccess {
   }
 
   @EventListener
-  public void onLoginAttemptsSuccess(AuthenticationFailureBadCredentialsEvent event){
+  public void onLoginAttemptsSuccess(AuthenticationFailureBadCredentialsEvent event) {
     Object principal = event.getAuthentication().getPrincipal();
     if (principal instanceof Userdata) {
       Userdata userdata = (Userdata) principal;

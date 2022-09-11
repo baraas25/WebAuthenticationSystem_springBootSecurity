@@ -1,7 +1,5 @@
 package de.bs.webauthenticationsystem_be.controller;
 
-
-
 import de.bs.webauthenticationsystem_be.model.entity.ResetPasswordLink;
 import de.bs.webauthenticationsystem_be.services.imp.ResetPasswordLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,10 @@ import java.util.List;
 @RequestMapping(value = "api/v1/pass")
 public class ResetPasswordLinkControler {
 
-    @Autowired
-   private ResetPasswordLinkService resetPasswordLinkService;
+  @Autowired private ResetPasswordLinkService resetPasswordLinkService;
 
-    @GetMapping("/getall")
-    public List<ResetPasswordLink> adminRole() {
-        return resetPasswordLinkService.getAll();
-    }
+  @GetMapping("/getall")
+  public List<ResetPasswordLink> adminRole() {
+    return resetPasswordLinkService.getAll();
+  }
 }

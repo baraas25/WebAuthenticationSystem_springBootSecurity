@@ -13,10 +13,10 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 public class LoginAttemptsService {
   private static final int NUMBER_OF_ATTEMPTS = 3;
   private static final int LOCKED_TIME = 1;
-  private LoadingCache<String, Integer> loadingAttemptCache;
+  private final LoadingCache<String, Integer> loadingAttemptCache;
 
   public LoginAttemptsService() {
-      super();
+    super();
     loadingAttemptCache =
         CacheBuilder.newBuilder()
             .expireAfterWrite(LOCKED_TIME, MINUTES)
@@ -34,23 +34,22 @@ public class LoginAttemptsService {
     loadingAttemptCache.invalidate(username);
   }
 
-  public void addUserAttemptToCache(String username)  {
-      int attempts = 0;
-      try {
-          attempts = 1 + loadingAttemptCache.get(username);
-      } catch (ExecutionException e) {
-          e.printStackTrace();
-      }
-      loadingAttemptCache.put(username, attempts);
+  public void addUserAttemptToCache(String username) {
+    int attempts = 0;
+    try {
+      attempts = 1 + loadingAttemptCache.get(username);
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+    loadingAttemptCache.put(username, attempts);
   }
 
-  public boolean usernameOverpassMaxAttempts(String username)  {
-      try {
-          return loadingAttemptCache.get(username) >= NUMBER_OF_ATTEMPTS;
-      } catch (ExecutionException e) {
-          e.printStackTrace();
-      }
-return false;
+  public boolean usernameOverpassMaxAttempts(String username) {
+    try {
+      return loadingAttemptCache.get(username) >= NUMBER_OF_ATTEMPTS;
+    } catch (ExecutionException e) {
+      e.printStackTrace();
+    }
+    return false;
   }
-
 }
