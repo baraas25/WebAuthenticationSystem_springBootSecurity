@@ -65,7 +65,7 @@ public class UserAccountController {
       value = "changepassword",
       produces = {"text/json"})
   public ResponseEntity<String> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO)
-      throws UsernameNotExist, PasswordMatch {
+      throws  PasswordMatch {
     return new ResponseEntity<>(userAccountService.changePassword(changePasswordDTO), OK);
   }
 
@@ -81,7 +81,7 @@ public class UserAccountController {
       value = "resetpassword/link/{userAccountId}",
       produces = {"text/json"})
   public ResponseEntity<String> resetPassword(@PathVariable UUID userAccountId)
-      throws EmailNotExist {
+       {
     return new ResponseEntity<>(userAccountService.resetPassword(userAccountId), OK);
   }
 
